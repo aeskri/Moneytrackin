@@ -52,7 +52,7 @@ var Moneytrackin = function(user, password) {
             var len = response.project.length
             for(i = 0; i < len; ++i) {
                 var a = response.project[i]
-                result.push({ id: a.$.id, name: a.name[0], balance: a.balance[0], currencyTitle: a.htmlchar, currency: a.currency, balanceInBaseCurrency: a.balancem })
+                result.push({ id: parseInt(a.$.id) || null, name: a.name[0], balance: parseFloat(a.balance[0]), currencyTitle: a.htmlchar[0], currency: a.currency[0], balanceInBaseCurrency: parseFloat(a.balancem[0]) })
             }
             return result
         }, callback)
@@ -65,7 +65,7 @@ var Moneytrackin = function(user, password) {
             var len = response.transaction.length
             for(i = 0; i < len; ++i) {
                 var t = response.transaction[i]
-                result.push({ id: t.$.id, description: t.description[0], amount: t.amount[0], date: t.date[0], tags: t.tags[0].tag })
+                result.push({ id: parseInt(t.$.id), description: t.description[0], amount: parseFloat(t.amount[0]), date: new Date(t.date[0]), tags: t.tags[0].tag })
             }
             return result
         }, callback)
